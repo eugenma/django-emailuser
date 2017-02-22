@@ -1,0 +1,7 @@
+*.pyc
+*~
+.*.swp
+
+cmd.lnk
+env/
+.vagrant/
