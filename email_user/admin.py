@@ -4,15 +4,18 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import EmailUser
+from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm,\
     AdminPasswordChangeForm
 from django.utils.translation import ugettext_lazy as _
 
 
-admin.site.unregister(User)
+if admin.site.is_registered(DjangoUser):
+    admin.site.unregister(DjangoUser)
 
-# TODO: Test
+
+# TODO Test
 @admin.register(EmailUser)
 class UserAdmin(UserAdmin):
     fieldsets = (
