@@ -3,7 +3,7 @@ from __future__ import unicode_literals, print_function, division, absolute_impo
 from django.core import mail
 from django.test import TestCase
 
-from authlayer.tests.factories import EmailUserFactory
+from .factories import EmailUserFactory
 
 
 class EmailUserTest(TestCase):

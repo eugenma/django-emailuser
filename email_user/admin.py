@@ -25,12 +25,14 @@ class UserAdmin(UserAdmin):
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2'),
         }),
     )
+
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
@@ -39,3 +41,4 @@ class UserAdmin(UserAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
+    readonly_fields = ('date_joined', )
