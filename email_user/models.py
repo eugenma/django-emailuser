@@ -14,6 +14,9 @@ from django.utils import timezone
 class EmailUserManager(BaseUserManager):
     use_in_migrations = True
 
+    def get_by_natural_key(self, username):
+        return self.get(**{f'{self.model.USERNAME_FIELD}__iexact': username})
+
     def _create_user(self, email, password=None, **extra_fields):
         """
         Creates and saves a User with the given email and password.

@@ -6,7 +6,7 @@ django_emailuser.egg-info/dependency_links.txt
 django_emailuser.egg-info/top_level.txt
 email_user/__init__.py
 email_user/admin.py
-email_user/apps.py
+email_user/app.py
 email_user/models.py
 email_user/serializers.py
 email_user/migrations/0001_initial.py
