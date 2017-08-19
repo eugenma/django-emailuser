@@ -3,17 +3,16 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import EmailUser
 
+
 class EmailUserSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = EmailUser
-        fields = ('first_name', 'last_name', 
+        fields = ('first_name', 'last_name',
                   'email', 'password', 'is_staff', 'is_active',
-                  'date_joined', 
+                  'date_joined',
                   )
 
-        read_only_fields = ('is_staff', 'is_active',
-                            'date_joined', 
-                           )
+        read_only_fields = ('is_staff', 'is_active', 'date_joined', )
 
         extra_kwargs = {'password': {'write_only': True}}
 

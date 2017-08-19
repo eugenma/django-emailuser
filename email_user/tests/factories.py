@@ -10,6 +10,7 @@ class EmailUserFactory(factory.DjangoModelFactory):
     class Meta(object):
         model = models.EmailUser
         exclude = ('PASSWORD', )
+        django_get_or_create = ('email', )
 
     first_name = factory.Faker('first_name')
     last_name = factory.Faker('last_name')
