@@ -1,8 +1,5 @@
-from __future__ import division, print_function, absolute_import
-
 from django.contrib import admin
 
-# Register your models here.
 from .models import EmailUser
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.admin import UserAdmin
@@ -15,7 +12,7 @@ if admin.site.is_registered(DjangoUser):
     admin.site.unregister(DjangoUser)
 
 
-# TODO Test
+# noinspection PyClassHasNoInit
 @admin.register(EmailUser)
 class UserAdmin(UserAdmin):
     fieldsets = (

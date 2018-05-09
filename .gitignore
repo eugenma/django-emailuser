@@ -5,3 +5,5 @@
 cmd.lnk
 env/
 .vagrant/
+
+django_emailuser.egg-info/

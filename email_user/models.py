@@ -1,14 +1,9 @@
-from __future__ import division, print_function, absolute_import, unicode_literals
-
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
-from django.core.validators import MinLengthValidator
-
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 
 class EmailUserManager(BaseUserManager):
@@ -19,7 +14,7 @@ class EmailUserManager(BaseUserManager):
 
     def _create_user(self, email, password=None, **extra_fields):
         """
-        Creates and saves a User with the given email and password.
+        Creates and saves a UserModel with the given email and password.
         """
         if not email:
             raise ValueError('The given email must be set')
@@ -54,7 +49,7 @@ class EmailUserManager(BaseUserManager):
 
 
 class EmailUser(AbstractBaseUser, PermissionsMixin):
-    """User mode with email as username field.
+    """UserModel mode with email as username field.
     """
     first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
     last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
@@ -98,6 +93,6 @@ class EmailUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         """
-        Sends an email to this User.
+        Sends an email to this UserModel.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)

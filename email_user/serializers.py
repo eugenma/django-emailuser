@@ -1,6 +1,5 @@
-from __future__ import division, print_function, absolute_import
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from .models import EmailUser
 
 
