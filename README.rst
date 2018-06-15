@@ -2,7 +2,7 @@
 Users
 =====
 
-Users is a simple Django app which uses email address to identify users instead of an username.
+Django email_users is a simple Django app which uses email address to identify users instead of the username.
 
 Quick start
 -----------
