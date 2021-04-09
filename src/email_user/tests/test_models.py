@@ -9,7 +9,7 @@ class EmailUserTest(TestCase):
         self.owner = EmailUserFactory()
 
     def test_fullname(self):
-        expected = '{0} {1}'.format(self.owner.first_name, self.owner.last_name)
+        expected = f'{self.owner.first_name} {self.owner.last_name}'.strip()
 
         received = self.owner.get_full_name()
         self.assertEqual(received, expected)
@@ -22,7 +22,8 @@ class EmailUserTest(TestCase):
         expected_message = 'My Message'
         expected_from_email = 'asdf@fdsa.com'
 
-        self.owner.email_user(expected_subject, expected_message, expected_from_email)
+        self.owner.email_user(
+            expected_subject, expected_message, expected_from_email)
 
         self.assertEqual(len(mail.outbox), 1)
 
@@ -31,4 +32,3 @@ class EmailUserTest(TestCase):
         self.assertEqual(send_email.body, expected_message)
         self.assertEqual(send_email.from_email, expected_from_email)
         self.assertIn(self.owner.email, send_email.to)
-

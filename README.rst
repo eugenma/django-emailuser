@@ -1,8 +1,28 @@
+
 =====
 Users
 =====
 
 Django email_users is a simple Django app which uses email address to identify users instead of the username.
+
+Requirements
+---------------
+Package was tested with 
+
+* Python 3.6, 3.7, 3.8
+* Django 3.0, 3.1, 3.2
+
+
+If you intend to use it with Django Rest Framework then following versions were tested
+
+TODO
+
+
+Installation 
+-------------
+For pip use the following command
+
+   $ pip install git+https://github.com/eugenma/django-emailuser.git
 
 Quick start
 -----------

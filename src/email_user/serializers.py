@@ -16,18 +16,27 @@ class EmailUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        password = validated_data.pop('password', None)
 
         user = EmailUser.objects.create(**validated_data)
-        user.set_password(password)
+
+        if password:
+            user.set_password(password)
         user.save()
 
         return user
 
     def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+
         user = EmailUser(id=instance.id, **validated_data)
 
-        user.save(update_fields=validated_data.keys(), force_update=True)
+        update_fields = validated_data.keys()
+
+        if password:
+            user.set_password(password)
+            update_fields = list(update_fields) + ['password', ]
+
+        user.save(update_fields=update_fields, force_update=True)
 
         return user
-

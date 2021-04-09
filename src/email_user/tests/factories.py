@@ -10,9 +10,9 @@ class EmailUserFactory(factory.DjangoModelFactory):
         exclude = ('PASSWORD', )
         django_get_or_create = ('email', )
 
+    first_name = factory.Faker('first_name')
     last_name = factory.Faker('last_name')
     email = factory.LazyAttribute(lambda self: '{0}@example.com'.format(self.last_name))
     is_staff = False
     is_active = True
     password = factory.PostGenerationMethodCall('set_password', PASSWORD)
-
