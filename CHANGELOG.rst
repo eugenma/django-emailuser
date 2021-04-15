@@ -2,8 +2,12 @@
 Version history
 ===============
 
+1.0.0-alpha.2 (2021-04-15)
+===========================
+* Updated factory
+
 1.0.0-alpha.1 (2021-04-09)
-==================
+===========================
 * Support Python >=3.6
 * Support Django >=3.0
 * tox script
