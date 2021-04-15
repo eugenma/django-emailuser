@@ -1,8 +1,14 @@
 import factory
+try:
+    # new package since factory_boy 3.0.0
+    from factory.django import DjangoModelFactory
+except AttributeError:
+    from factory import DjangoModelFactory
+
 from email_user import models
 
 
-class EmailUserFactory(factory.DjangoModelFactory):
+class EmailUserFactory(DjangoModelFactory):
     PASSWORD = 'pw'
 
     class Meta(object):

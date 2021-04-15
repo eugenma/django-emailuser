@@ -22,7 +22,7 @@ Installation
 -------------
 For pip use the following command
 
-   $ pip install git+https://github.com/eugenma/django-emailuser.git
+   $ pip install git+https://github.com/eugenma/django-emailuser.git#egg=django-emailuser
 
 Quick start
 -----------
