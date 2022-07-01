@@ -27,3 +27,8 @@ BASE_DIR = os.path.dirname(__file__)
 
 AUTH_USER_MODEL = 'email_user.EmailUser'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+DJANGO_EMAIL_USER = {
+    'STORE_METHOD': 'lower',
+}

@@ -15,7 +15,7 @@ Package was tested with
 
 If you intend to use it with Django Rest Framework then following versions were tested
 
-TODO
+3.13.1
 
 
 Installation 
@@ -40,3 +40,17 @@ Quick start
 3. Run `python manage.py migrate` to create the models.
 
 
+Settings
+-------------
+All settings are stored within the dictionary `DJANGO_EMAIL_USER`. The values are
+
+* `STORE_METHOD` configuration of the email case handling
+
+  The possible values are
+
+  * `exact` - save the email as is without modifying the case,
+  * `lower` - convert everything to lower case,
+  * `normalize` - calls `BaseUserManager.normalize_email() <https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#django.contrib.auth.models.BaseUserManager.normalize_email>`_.
+    This is the behaviour of the previous versions.
+
+  Take care if you change this config in a running project. It changes the way how the fields are stored and retrieved.

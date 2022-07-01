@@ -15,6 +15,7 @@ class EmailUserSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {'password': {'write_only': True}}
 
+    # noinspection PyMethodMayBeStatic
     def create(self, validated_data):
         password = validated_data.pop('password', None)
 

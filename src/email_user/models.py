@@ -5,6 +5,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from .conf import StoreMethod
+from .fields import CaseEmailField
+
 
 class EmailUserManager(BaseUserManager):
     use_in_migrations = True
@@ -19,12 +22,17 @@ class EmailUserManager(BaseUserManager):
         if not email:
             raise ValueError('The given email must be set')
 
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        email_store_method = StoreMethod.from_settings().value
+        email_stored = email_store_method(email)
+
+        user = self.model(email=email_stored, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
+
+    def create(self, **kwargs):
+        return self._create_user(**kwargs)
 
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
@@ -50,10 +58,13 @@ class EmailUserManager(BaseUserManager):
 
 class EmailUser(AbstractBaseUser, PermissionsMixin):
     """UserModel mode with email as username field.
+
+    If email use a StoreMode different from exact one need to call `obj.refresh_from_db()` to have the correct
+    value of the email.
     """
     first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
     last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
-    email = models.EmailField(_('email address'), unique=True, error_messages={
+    email = CaseEmailField(_('email address'), unique=True, error_messages={
         'unique': _('A user with that email is already registered.')
     })
     is_staff = models.BooleanField(
