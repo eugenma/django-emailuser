@@ -9,8 +9,8 @@ Requirements
 ---------------
 Package was tested with 
 
-* Python 3.6, 3.7, 3.8
-* Django 3.0, 3.1, 3.2
+* Python 3.6, 3.7, 3.8, 3.10
+* Django 3.0, 3.1, 3.2, 4.0
 
 
 If you intend to use it with Django Rest Framework then following versions were tested
