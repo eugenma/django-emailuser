@@ -2,6 +2,11 @@
 Version history
 ===============
 
+1.0.1 (2022-11-20)
+===========================
+* Added `AbstractBaseEmailUser` and `AbstractEmailUser`. `EmailUser` inherits from `AbstractEmailUser`.
+* Added Support to Django 4.0 and 4.1
+
 1.0.0 (2022-07-01)
 ===========================
 * Dropped support for Django 3.1 and less. Added support for Django 4.0 and Python 3.10.

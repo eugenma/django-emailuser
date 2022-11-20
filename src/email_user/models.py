@@ -56,7 +56,33 @@ class EmailUserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class EmailUser(AbstractBaseUser, PermissionsMixin):
+class AbstractBaseEmailUser(AbstractBaseUser):
+    """UserModel mode with email as username field.
+
+    If email use a StoreMode different from exact one need to call `obj.refresh_from_db()` to have the correct
+    value of the email.
+    """
+    email = CaseEmailField(_('email address'), unique=True, error_messages={
+        'unique': _('A user with that email is already registered.')
+    })
+
+    objects = EmailUserManager()
+
+    USERNAME_FIELD = 'email'
+
+    class Meta(object):
+        abstract = True
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """
+        Sends an email to this UserModel.
+        """
+        send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class AbstractEmailUser(AbstractBaseEmailUser, PermissionsMixin):
     """UserModel mode with email as username field.
 
     If email use a StoreMode different from exact one need to call `obj.refresh_from_db()` to have the correct
@@ -64,9 +90,6 @@ class EmailUser(AbstractBaseUser, PermissionsMixin):
     """
     first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
     last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
-    email = CaseEmailField(_('email address'), unique=True, error_messages={
-        'unique': _('A user with that email is already registered.')
-    })
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -82,12 +105,10 @@ class EmailUser(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now, editable=False)
 
-    objects = EmailUserManager()
-
-    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     class Meta(object):
+        abstract = True
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
@@ -107,3 +128,8 @@ class EmailUser(AbstractBaseUser, PermissionsMixin):
         Sends an email to this UserModel.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class EmailUser(AbstractEmailUser):
+    class Meta(AbstractEmailUser.Meta):
+        pass
