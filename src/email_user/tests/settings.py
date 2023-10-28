@@ -32,3 +32,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DJANGO_EMAIL_USER = {
     'STORE_METHOD': 'lower',
 }
+
+USE_TZ = False  # just testing settings.
